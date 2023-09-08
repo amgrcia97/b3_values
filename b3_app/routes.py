@@ -46,8 +46,8 @@ Session(app)
 @app.route("/")
 def index():
     print('OPAAA')
-    # if not session.get("name"):
-    #     return redirect("/login")
+    if not session.get("name"):
+        return redirect("/login")
     return render_template('index.html')
 
 
