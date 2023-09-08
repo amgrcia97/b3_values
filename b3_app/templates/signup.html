@@ -1,0 +1,48 @@
+{% extends 'login.html' %}
+
+{% block form %}
+<header>Cadastro</header>
+<form action="/login" method="POST">
+    <div class="field">
+        <span class="fa fa-user"></span>
+        <input id="username" name="username" type="text" required placeholder="Nome" pattern="[A-Za-z]{1,32}" minlength="3" title="Deve conter pelo menos 3 ou mais caracteres">
+    </div>
+    <div class="field space">
+        <span class="fa fa-envelope"></span>
+        <input id="email" name="email" type="email" required placeholder="user@b3stock.com" pattern=".+@[A-Za-z]{1,20}.com" size="30" multiple >
+    </div>
+    <div class="field space">
+        <span class="fa fa-lock"></span>
+        <input id="password" name="password" type="password" class="pass-key" required placeholder="Senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Deve conter pelo menos um número e uma letra maiúscula e minúscula e pelo menos 8 ou mais caracteres" >
+        <span class="show">Mostrar</span>
+    </div>
+    <div class="field space">
+        <span class="fa fa-lock"></span>
+        <input id="confirm_password" name="confirm_password" type="password" class="pass-key1" required placeholder="Confirmar Senha">
+    </div>
+    <div class="field space">
+        <input type="submit" value="Criar minha conta">
+    </div>
+</form>
+<div class="signup">
+    Já tenho uma conta!  
+    <a href="/login" style="padding-left: 3px; margin-left: 3px;">Entrar</a>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    var password = document.getElementById("password")
+    var confirm_password = document.getElementById("confirm_password");
+    
+    function validatePassword(){
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("As senhas não coincidem");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>B3 Login</title>
+        <link rel="icon" href="https://s3-symbol-logo.tradingview.com/b3-on-nm--600.png" type="image/png">
+        <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    </head>
+    <body>
+        <div class="bg-img">
+            <div class="content">
+            {% block form %}
+            <header>Login</header>
+            <form action="/login" method="POST">
+                <div class="field">
+                    <span class="fa fa-user"></span>
+                    <input id="username" name="username" type="text" required placeholder="Nome">
+                </div>
+                <div class="field space">
+                    <span class="fa fa-lock"></span>
+                    <input id="password" name="password" type="password" class="pass-key" required placeholder="Senha">
+                    <span class="show">Mostrar</span>
+                </div>
+                <div class="pass">
+                    <!-- <a href="#">Forgot Password?</a> -->
+                </div>
+                <div class="field space">
+                    <input type="submit" value="Entrar">
+                </div>
+            </form>
+            <div class="signup" style="margin-top: 10px;">
+                Não tem cadastro?
+                <a href="/signup"style="padding-left: 3px; margin-left: 3px;">Criar minha conta</a>
+            </div>
+            {% endblock %}
+            </div>
+        </div>
+        <script>
+            const pass_field = document.querySelector('.pass-key');
+            const pass_field1 = document.querySelector('.pass-key1');
+            const showBtn = document.querySelector('.show');
+            showBtn.addEventListener('click', function(){
+            if(pass_field.type === "password"){
+            pass_field.type = "text";
+            pass_field1.type = "text";
+            showBtn.textContent = "Ocultar";
+            showBtn.style.color = "#3498db";
+            }else{
+            pass_field.type = "password";
+            pass_field1.type = "password";
+            showBtn.textContent = "Mostrar";
+            showBtn.style.color = "#222";
+            }
+            });
+        </script>
+        {% block script %}
+        {% endblock %}
+    </body>
+</html>
