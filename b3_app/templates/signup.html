@@ -2,7 +2,18 @@
 
 {% block form %}
 <header>Cadastro</header>
-<form action="/login" method="POST">
+{% for message in get_flashed_messages(category_filter=["error"]) %}
+<div class="alert-login">{{ message }}
+    <div class="signup">
+        <a href="/recuperar-senha" style="padding: 8px; margin: 8px;">Recuperar Senha</a>
+    </div>
+</div>
+{% endfor %}
+{% for message in get_flashed_messages(category_filter=["success"]) %}
+<div class="alert-login">{{ message }}
+</div>
+{% endfor %}
+<form action="/signup" method="POST">
     <div class="field">
         <span class="fa fa-user"></span>
         <input id="username" name="username" type="text" required placeholder="Nome" pattern="[A-Za-z]{1,32}" minlength="3" title="Deve conter pelo menos 3 ou mais caracteres">
