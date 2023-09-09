@@ -34,7 +34,8 @@ def login():
                 else:
                     flash('Usuário ou senha incorreta', 'danger')
                     return render_template('login.html')
-    return render_template("login.html")
+    else:
+        return render_template("login.html")
 
 
 @app.route("/signup", methods=["POST", "GET"])
@@ -71,7 +72,8 @@ def recuperar_senha():
 @app.route("/logout")
 def logout():
     session["email"] = None
-    return redirect(url_for('login'))
+    session['_flashes'].clear()
+    return redirect('login')
 
 
 # from b3_app.models import User, UserAsset, AssetType

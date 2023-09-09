@@ -52,12 +52,16 @@
             showBtn.addEventListener('click', function(){
             if(pass_field.type === "password"){
             pass_field.type = "text";
-            pass_field1.type = "text";
+            if (pass_field1) {
+                pass_field1.type = "text";
+            }
             showBtn.textContent = "Ocultar";
             showBtn.style.color = "#3498db";
             }else{
             pass_field.type = "password";
-            pass_field1.type = "password";
+            if (pass_field1) {
+                pass_field1.type = "password";
+            }
             showBtn.textContent = "Mostrar";
             showBtn.style.color = "#222";
             }
