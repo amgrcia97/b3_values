@@ -25,15 +25,14 @@ def login():
     if request.method == "POST":
         with engine.connect() as connection:
             result = connection.execute(text("SELECT password FROM users WHERE email='{email}'".format(email=email)))
-            if result.returns_rows:
+            if result.returns_rows and result.rowcount > 0:
                 passwor_data = result.fetchone()[0]
                 if sha256_crypt.verify(password, passwor_data):
                     session["email"] = email
                     flash("You are now logged in!!", "success")
                     return redirect(url_for('index'))  # to be edited from here do redict to either svm or home
-                else:
-                    flash('Usuário ou senha incorreta', 'danger')
-                    return render_template('login.html')
+            flash('Usuário ou senha incorreta', 'danger')
+            return render_template('login.html')
     else:
         return render_template("login.html")
 

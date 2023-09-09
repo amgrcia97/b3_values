@@ -10,7 +10,7 @@ Password:
 
 Table and Database:
 >>> CREATE DATABASE b3_app;
->>> CREATE TABLE users (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, username VARCHAR(100) NOT NULL, email VARCHAR(30), password VARCHAR(20), status INT);
+>>> CREATE TABLE users (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, username VARCHAR(100) NOT NULL, email VARCHAR(30), password VARCHAR(1000), status INT);
 >>> CREATE UNIQUE INDEX EMAIL ON users ( email);
 >>> CREATE TABLE asset_types (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, name VARCHAR(100) NOT NULL, description VARCHAR(1000));
 >>> CREATE TABLE user_assets (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, user_id int NOT NULL, asset_type int NOT NULL, name VARCHAR(100) NOT NULL, description VARCHAR(1000), qty INT, invested FLOAT(11,7));
