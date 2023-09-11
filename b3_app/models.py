@@ -14,6 +14,7 @@ Table and Database:
 >>> CREATE UNIQUE INDEX EMAIL ON users ( email);
 >>> CREATE TABLE asset_types (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, name VARCHAR(100) NOT NULL, description VARCHAR(1000));
 >>> CREATE TABLE user_assets (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, user_id int NOT NULL, asset_type int NOT NULL, name VARCHAR(100) NOT NULL, description VARCHAR(1000), qty INT, invested FLOAT(11,7));
+>>> ALTER TABLE `b3_app`.`users` ADD COLUMN `logo_url` VARCHAR(1000) NULL AFTER `password`;
 '''
 
 

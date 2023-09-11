@@ -5,6 +5,7 @@ from b3_app.models import User  # , UserAsset, AssetType
 from flask_session import Session
 from passlib.hash import sha256_crypt
 from sqlalchemy import text, insert
+from datetime import datetime
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -15,7 +16,26 @@ Session(app)
 def index():
     if not session.get("email"):
         return redirect("/login")
-    return render_template('index.html')
+
+    actions = 'CMIN3,KLBN4,MXRF11,XPCA11'
+    actives = []
+
+    import requests
+    url = 'https://brapi.dev/api/quote/{act}?token=gb5YSAsNP9w5prdw1a2x1G'.format(act=actions)
+    r = requests.get(url)
+    if r.status_code == 200:
+        response = r.json()['results']
+        for act in response:
+            # print(act)
+            actives.append(
+                {
+                    'name': act['symbol'],
+                    'logo': act['logourl'] if 'logourl' in act.keys() else '',
+                    'actual_price': act['regularMarketPrice'],
+                    'last_update': datetime.strptime(act['updatedAt'][:19], '%Y-%m-%d %H:%M:%S')
+                }
+            )
+    return render_template('index.html', actives=actives)
 
 
 @app.route("/login", methods=["POST", "GET"])

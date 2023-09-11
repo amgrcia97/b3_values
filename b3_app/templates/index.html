@@ -44,29 +44,39 @@
                 </div>
             </nav>
             <div class="body-content">
-                <header>Ola petituto</header>
+                <!-- <header>Ola petituto</header>
                 <div class="body-text">
                     <div class="title">Responsive Dropdown and Mega Menu</div>
                     <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                </div>
+                </div> -->
+                <h1>Minha Carteira </h1>
+                <h2><span class="white"> Patrimônio: R$ 406.44</pan></h2>
+                <br>
+                <!-- <h2>Created with love by <a href="https://github.com/pablorgarcia" target="_blank">Pablo García</a></h2> -->
+                <table class="container">
+                    <thead>
+                        <tr>
+                            <th><h1></h1></th>
+                            <th><h1>Item</h1></th>
+                            <th><h1>Cotas</h1></th>
+                            <th><h1>Custo Médio</h1></th>
+                            <th><h1>Último Preço<h1></th>
+                            <th><h1>Última Atualização</h1></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for active in actives %}
+                        <tr>
+                            <td><img src={{ active.logo }} alt="Girl in a jacket" style="width:30px;height:30px;"></td>
+                            <td>{{ active.name }}</td>
+                            <td>{{ active.qty }}</td>
+                            <td>R$ {{ active.cost_med }}</td>
+                            <td>R$ {{ active.actual_price }}</td>
+                            <td>{{ active.last_update }}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
             </div>
             {% endblock %}
         </div>
