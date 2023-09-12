@@ -9,56 +9,58 @@
         <title> My B3 Market Stock </title>
     </head>
     <body>
-        <div class="bg-img">
-        {% block r %}
-            <nav>
-                <div class="wrapper">
-                    <div class="logo" style="padding-top: 30px;">
-                        <svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="50" height="50" viewBox="0 0 1000 857.1" style="enable-background:new 0 0 1000 857.1" xml:space="preserve">
-                            <style>.st0{fill:#097ad7}</style>
-                            <path class="st0" d="M432.2 615.9h-131V506.7h131c29.9 0 54 24.1 54 54s-24.1 55.2-54 55.2zM301.1 309.1h119.5c29.9 0 54 24.1 54 54s-24.1 54-54 54H301.1v-108zm257.5 141.3c18.4-24.1 29.9-54 29.9-87.3 0-79.3-64.4-143.6-143.7-143.6H181.6V704.3h286.2c79.3 0 143.7-64.3 143.7-143.6 0-44.8-20.7-83.9-52.9-110.3zM1000 132.1c0 17.2-6.9 32.2-20.7 43.7-13.8 11.5-31 17.2-51.7 17.2-19.5 0-36.8-5.7-50.6-16.1-13.8-10.3-21.8-24.1-24.1-42.5h54c4.6 10.3 11.5 16.1 21.8 16.1 6.9 0 11.5-1.1 16.1-4.6 4.6-3.4 5.7-8 5.7-13.8 0-5.7-2.3-9.2-5.7-12.6-4.6-3.4-9.2-4.6-17.2-4.6h-18.4V77h17.2c6.9 0 12.6-1.1 16.1-4.6 3.4-3.4 5.7-6.9 5.7-11.5 0-5.7-2.3-10.3-5.7-13.8-3.4-3.4-9.2-4.6-14.9-4.6-6.9 0-11.5 2.3-16.1 6.9-2.3 2.3-4.6 5.7-5.7 10.3h-50.6c3.4-18.4 10.3-33.3 24.1-43.7C892 5.7 908 0 927.6 0c20.7 0 36.8 5.7 50.6 16.1 12.6 11.5 19.5 25.3 19.5 42.5 0 16.1-6.9 27.6-19.5 35.6 14.9 8.1 21.8 21.8 21.8 37.9z"/>
-                            <path class="st0" d="M182.8 126.4V66.6H0v790.5h182.8v-58.6h-123V126.4h123zM608 798.5v58.6h182.8V66.6H608v59.7h124.1v672.2H608z"/>
-                        </svg>
-                    </div>
-                    <input type="radio" name="slider" id="menu-btn">
-                    <input type="radio" name="slider" id="close-btn">
-                    <ul class="nav-links">
-                        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/contato">Contato</a></li>
-                        <li>
-                            <a href="#" class="desktop-item">Menu</a>
-                            <input type="checkbox" id="showDrop">
-                            <label for="showDrop" class="mobile-item">Menu</label>
-                            <ul class="drop-menu">
-                                <li><a href="#">Meu Perfil</a></li>
-                                <li><a href="#">Preferenças</a></li>
-                                <li><a href="#">Drop menu 3</a></li>
-                                <li><a href="#">Drop menu 4</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/logout">Sair</a></li>
-                    </ul>
-                    <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+        <nav>
+            <div class="wrapper">
+                <div class="logo" style="padding-top: 30px;">
+                    <svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="50" height="50" viewBox="0 0 1000 857.1" style="enable-background:new 0 0 1000 857.1" xml:space="preserve">
+                        <style>.st0{fill:#097ad7}</style>
+                        <path class="st0" d="M432.2 615.9h-131V506.7h131c29.9 0 54 24.1 54 54s-24.1 55.2-54 55.2zM301.1 309.1h119.5c29.9 0 54 24.1 54 54s-24.1 54-54 54H301.1v-108zm257.5 141.3c18.4-24.1 29.9-54 29.9-87.3 0-79.3-64.4-143.6-143.7-143.6H181.6V704.3h286.2c79.3 0 143.7-64.3 143.7-143.6 0-44.8-20.7-83.9-52.9-110.3zM1000 132.1c0 17.2-6.9 32.2-20.7 43.7-13.8 11.5-31 17.2-51.7 17.2-19.5 0-36.8-5.7-50.6-16.1-13.8-10.3-21.8-24.1-24.1-42.5h54c4.6 10.3 11.5 16.1 21.8 16.1 6.9 0 11.5-1.1 16.1-4.6 4.6-3.4 5.7-8 5.7-13.8 0-5.7-2.3-9.2-5.7-12.6-4.6-3.4-9.2-4.6-17.2-4.6h-18.4V77h17.2c6.9 0 12.6-1.1 16.1-4.6 3.4-3.4 5.7-6.9 5.7-11.5 0-5.7-2.3-10.3-5.7-13.8-3.4-3.4-9.2-4.6-14.9-4.6-6.9 0-11.5 2.3-16.1 6.9-2.3 2.3-4.6 5.7-5.7 10.3h-50.6c3.4-18.4 10.3-33.3 24.1-43.7C892 5.7 908 0 927.6 0c20.7 0 36.8 5.7 50.6 16.1 12.6 11.5 19.5 25.3 19.5 42.5 0 16.1-6.9 27.6-19.5 35.6 14.9 8.1 21.8 21.8 21.8 37.9z"/>
+                        <path class="st0" d="M182.8 126.4V66.6H0v790.5h182.8v-58.6h-123V126.4h123zM608 798.5v58.6h182.8V66.6H608v59.7h124.1v672.2H608z"/>
+                    </svg>
                 </div>
-            </nav>
+                <input type="radio" name="slider" id="menu-btn">
+                <input type="radio" name="slider" id="close-btn">
+                <ul class="nav-links">
+                    <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contato">Contato</a></li>
+                    <li>
+                        <a href="#" class="desktop-item">Menu</a>
+                        <input type="checkbox" id="showDrop">
+                        <label for="showDrop" class="mobile-item">Menu</label>
+                        <ul class="drop-menu">
+                            <li><a href="#">Meu Perfil</a></li>
+                            <li><a href="#">Preferenças</a></li>
+                            <li><a href="#">Drop menu 3</a></li>
+                            <li><a href="#">Drop menu 4</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/logout">Sair</a></li>
+                </ul>
+                <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+            </div>
+        </nav>
+        <div class="body-container">
             <div class="body-content">
-                <!-- <header>Ola petituto</header>
+                <header>Olá {{user}} :)</header>
                 <div class="body-text">
-                    <div class="title">Responsive Dropdown and Mega Menu</div>
-                    <div class="sub-title">using only HTML & CSS</div>
-                </div> -->
-                <h1>Minha Carteira </h1>
-                <h2><span class="white"> Patrimônio: R$ 406.44</pan></h2>
-                <br>
-                <!-- <h2>Created with love by <a href="https://github.com/pablorgarcia" target="_blank">Pablo García</a></h2> -->
+                    <div class="title">>>> Carteira</div>
+                    <div class="sub-title">Patrimônio: R$ {{ptrm}}</div>
+                    <div class="sub-title">Rendimento: R$ {{invested_t}}
+                        {% if rend_p %}
+                        <spam class="green">+ R$ {{rend_p}}</spam>
+                        {% else %}
+                        <spam class="red">- R$ {{rend_n}}</spam>
+                        {% endif %}
+                    </div>
+                </div>
                 <table class="container">
                     <thead>
                         <tr>
-                            <th><h1></h1></th>
                             <th><h1>Item</h1></th>
                             <th><h1>Cotas</h1></th>
+                            <th><h1>Investido</h1></th>
                             <th><h1>Custo Médio</h1></th>
                             <th><h1>Último Preço<h1></th>
                             <th><h1>Última Atualização</h1></th>
@@ -67,18 +69,18 @@
                     <tbody>
                         {% for active in actives %}
                         <tr>
-                            <td><img src={{ active.logo }} alt="Girl in a jacket" style="width:30px;height:30px;"></td>
+                            <!-- <td><img src={{ active.logo }} alt="Girl in a jacket" style="width:30px;height:30px;"></td> -->
                             <td>{{ active.name }}</td>
                             <td>{{ active.qty }}</td>
-                            <td>R$ {{ active.cost_med }}</td>
-                            <td>R$ {{ active.actual_price }}</td>
+                            <td>R$ {{ active.invested }}</td>
+                            <td>{{ active.average_price }}</td>
+                            <td>{{ active.actual_price }}</td>
                             <td>{{ active.last_update }}</td>
                         </tr>
                         {%endfor%}
                     </tbody>
                 </table>
             </div>
-            {% endblock %}
         </div>
     </body>
 </html>

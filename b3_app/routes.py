@@ -5,7 +5,8 @@ from b3_app.models import User  # , UserAsset, AssetType
 from flask_session import Session
 from passlib.hash import sha256_crypt
 from sqlalchemy import text, insert
-# from datetime import datetime
+import yfinance as yf
+from datetime import datetime
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -17,27 +18,50 @@ def index():
     if not session.get("email"):
         return redirect("/login")
 
-    # actions = 'CMIN3,KLBN4,MXRF11,XPCA11'
-    # actives = []
+    actions = ['CMIN3.SA', 'KLBN4.SA', 'MXRF11.SA', 'XPCA11.SA']
 
-    # import requests
-    # url = 'https://brapi.dev/api/quote/{act}?token=gb5YSAsNP9w5prdw1a2x1G'.format(act=actions)
-    # r = requests.get(url)
-    # if r.status_code == 200:
-    #     response = r.json()['results']
-    #     for act in response:
-    #         # print(act)
-    #         actives.append(
-    #             {
-    #                 'name': act['symbol'],
-    #                 'logo': act['logourl'] if 'logourl' in act.keys() else '',
-    #                 'actual_price': act['regularMarketPrice'],
-    #                 'last_update': datetime.strptime(act['updatedAt'][:19], '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
-    #             }
-    #         )
-    # print(actives)
-    actives = [{'name': 'CMIN3', 'logo': 'https://s3-symbol-logo.tradingview.com/csn-mineracao--big.svg', 'actual_price': 4.38, 'last_update': '2023-09-11 23:40:59'}, {'name': 'KLBN4', 'logo': 'https://s3-symbol-logo.tradingview.com/klabin--big.svg', 'actual_price': 4.52, 'last_update': '2023-09-11 23:41:41'}, {'name': 'MXRF11', 'logo': 'https://s3-symbol-logo.tradingview.com/fii--big.svg', 'actual_price': 10.88, 'last_update': '2023-09-11 23:55:15'}, {'name': 'XPCA11', 'logo': 'https://s3-symbol-logo.tradingview.com/banco-do-brasil--big.svg', 'actual_price': 9.53, 'last_update': '2023-09-11 23:45:10'}]
-    return render_template('index.html', actives=actives)
+    actions = [
+        {'name': 'CMIN3.SA', 'qty_u': 10, 'qty_m': 41.40},
+        {'name': 'KLBN4.SA', 'qty_u': 1, 'qty_m': 4.49},
+        {'name': 'MXRF11.SA', 'qty_u': 15, 'qty_m': 162.75},
+        {'name': 'XPCA11.SA', 'qty_u': 20, 'qty_m': 188.60},
+
+    ]
+    ptrm = 0
+    qty_t = 0
+    invested_t = 0
+    actives_list = []
+    tickers = yf.Tickers(' '.join(action['name'] for action in actions))
+    for action in actions:
+        last_update = tickers.tickers[action['name']].history(period="1d", interval="1m", rounding=True)['Close']
+        last_update_price = last_update.iloc[-1]
+        last_update_time = last_update.index[-1].strftime('%H:%M %d/%m/%Y')
+        act = tickers.tickers[action['name']].info
+        actives_list.append({
+            'name': act['underlyingSymbol'].replace('.SA', ''),
+            'qty': action['qty_u'],
+            'invested': action['qty_m'],
+            'average_price': 'R$ {}'.format(round(action['qty_m'] / action['qty_u'], 2)),
+            'actual_price': 'R$ {}'.format(last_update_price),
+            'last_update': last_update_time,
+        })
+        ptrm += action['qty_u'] * last_update_price
+        qty_t += action['qty_u']
+        invested_t += action['qty_m']
+
+    actives_list.append({
+        'name': 'TOTAL',
+        'qty': qty_t,
+        'invested': invested_t,
+        'average_price': '',
+        'actual_price': '',
+        'last_update': datetime.now().strftime('%H:%M %d/%m/%Y'),
+    })
+    ptrm = round(ptrm, 2)
+    invested_t = round(invested_t, 2)
+    rend_p = round(ptrm - invested_t, 2) if ptrm >= invested_t else None
+    rend_n = round(ptrm - invested_t, 2)*(-1) if invested_t > ptrm else None
+    return render_template('index.html', user=session["username"], actives=actives_list, ptrm=ptrm, invested_t=invested_t, rend_p=rend_p, rend_n=rend_n)
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -46,11 +70,13 @@ def login():
     password = request.form.get('password', None)
     if request.method == "POST":
         with engine.connect() as connection:
-            result = connection.execute(text("SELECT password FROM users WHERE email='{email}'".format(email=email)))
+            result = connection.execute(text("SELECT password, username FROM users WHERE email='{email}'".format(email=email)))
+            result_data = result.fetchone()
             if result.returns_rows and result.rowcount > 0:
-                passwor_data = result.fetchone()[0]
+                passwor_data = result_data[0]
                 if sha256_crypt.verify(password, passwor_data):
                     session["email"] = email
+                    session["username"] = result_data[1]
                     flash("You are now logged in!!", "success")
                     return redirect(url_for('index'))  # to be edited from here do redict to either svm or home
             flash('Usuário ou senha incorreta', 'danger')
