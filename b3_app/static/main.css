@@ -541,8 +541,29 @@ h1 {
      background-color: #2C3446;
  }
  
- .container th {
-     background-color: #1F2739;
- }
- 
- .container td { color: #ffffff; }
+  .container th {
+    background-color: #1F2739;
+  }
+  
+  .container td { color: #ffffff; }
+
+  /* SCROLLER */
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #20293cad;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    /* background: linear-gradient(#8A52E6, #1C45D5)!important; */
+    background-color: #374463; 
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3498db;
+  }
