@@ -5,7 +5,7 @@ from b3_app.models import User  # , UserAsset, AssetType
 from flask_session import Session
 from passlib.hash import sha256_crypt
 from sqlalchemy import text, insert
-from datetime import datetime
+# from datetime import datetime
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -17,24 +17,26 @@ def index():
     if not session.get("email"):
         return redirect("/login")
 
-    actions = 'CMIN3,KLBN4,MXRF11,XPCA11'
-    actives = []
+    # actions = 'CMIN3,KLBN4,MXRF11,XPCA11'
+    # actives = []
 
-    import requests
-    url = 'https://brapi.dev/api/quote/{act}?token=gb5YSAsNP9w5prdw1a2x1G'.format(act=actions)
-    r = requests.get(url)
-    if r.status_code == 200:
-        response = r.json()['results']
-        for act in response:
-            # print(act)
-            actives.append(
-                {
-                    'name': act['symbol'],
-                    'logo': act['logourl'] if 'logourl' in act.keys() else '',
-                    'actual_price': act['regularMarketPrice'],
-                    'last_update': datetime.strptime(act['updatedAt'][:19], '%Y-%m-%d %H:%M:%S')
-                }
-            )
+    # import requests
+    # url = 'https://brapi.dev/api/quote/{act}?token=gb5YSAsNP9w5prdw1a2x1G'.format(act=actions)
+    # r = requests.get(url)
+    # if r.status_code == 200:
+    #     response = r.json()['results']
+    #     for act in response:
+    #         # print(act)
+    #         actives.append(
+    #             {
+    #                 'name': act['symbol'],
+    #                 'logo': act['logourl'] if 'logourl' in act.keys() else '',
+    #                 'actual_price': act['regularMarketPrice'],
+    #                 'last_update': datetime.strptime(act['updatedAt'][:19], '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+    #             }
+    #         )
+    # print(actives)
+    actives = [{'name': 'CMIN3', 'logo': 'https://s3-symbol-logo.tradingview.com/csn-mineracao--big.svg', 'actual_price': 4.38, 'last_update': '2023-09-11 23:40:59'}, {'name': 'KLBN4', 'logo': 'https://s3-symbol-logo.tradingview.com/klabin--big.svg', 'actual_price': 4.52, 'last_update': '2023-09-11 23:41:41'}, {'name': 'MXRF11', 'logo': 'https://s3-symbol-logo.tradingview.com/fii--big.svg', 'actual_price': 10.88, 'last_update': '2023-09-11 23:55:15'}, {'name': 'XPCA11', 'logo': 'https://s3-symbol-logo.tradingview.com/banco-do-brasil--big.svg', 'actual_price': 9.53, 'last_update': '2023-09-11 23:45:10'}]
     return render_template('index.html', actives=actives)
 
 
