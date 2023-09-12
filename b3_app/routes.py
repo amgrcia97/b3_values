@@ -1,4 +1,5 @@
 from b3_app import app, engine
+from functools import wraps
 from flask import render_template, redirect, flash, url_for, request, session
 from b3_app.models import User  # , UserAsset, AssetType
 # The Session instance is not used for direct access, you should always use flask.session
@@ -13,11 +14,18 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
-@app.route("/")
-def index():
-    if not session.get("email"):
-        return redirect("/login")
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session['email'] is None:
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
+
+@app.route("/")
+@login_required
+def index():
     actions = ['CMIN3.SA', 'KLBN4.SA', 'MXRF11.SA', 'XPCA11.SA']
 
     actions = [
@@ -62,6 +70,30 @@ def index():
     rend_p = round(ptrm - invested_t, 2) if ptrm >= invested_t else None
     rend_n = round(ptrm - invested_t, 2)*(-1) if invested_t > ptrm else None
     return render_template('index.html', user=session["username"], actives=actives_list, ptrm=ptrm, invested_t=invested_t, rend_p=rend_p, rend_n=rend_n)
+
+
+@app.route("/about")
+@login_required
+def about():
+    return render_template('about.html')
+
+
+@app.route("/contact")
+@login_required
+def contact():
+    return render_template('contact.html')
+
+
+@app.route("/my-profile")
+@login_required
+def my_profile():
+    return render_template('my_profile.html')
+
+
+@app.route("/settings")
+@login_required
+def settings():
+    return render_template('settings.html')
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -121,35 +153,3 @@ def logout():
     session["email"] = None
     session['_flashes'].clear()
     return redirect('login')
-
-
-# from b3_app.models import User, UserAsset, AssetType
-# from b3_app import db
-
-
-# @app.route('/')
-# def index():
-#     users = User.query.all()
-#     a_types = AssetType.query.all()
-#     assets = UserAsset.query.all()
-#     # complete = Todo.query.filter_by(complete=True).all()
-#     return render_template('index.html')
-
-
-# @app.route('/add', methods=['POST'])
-# def add():
-#     # todo = Todo(text=request.form['todoitem'], complete=False)
-#     # db.session.add(todo)
-#     # db.session.commit()
-
-#     return redirect(url_for('index'))
-
-
-# @app.route('/complete/<id>')
-# def complete(id):
-
-#     # todo = Todo.query.filter_by(id=int(id)).first()
-#     # todo.complete = True
-#     # db.session.commit()
-
-#     return redirect(url_for('index'))

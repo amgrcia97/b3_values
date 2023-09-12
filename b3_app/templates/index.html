@@ -24,16 +24,14 @@
                     <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
                     <li><a href="/">Home</a></li>
                     <li><a href="/about">About</a></li>
-                    <li><a href="/contato">Contato</a></li>
+                    <li><a href="/contact">Contato</a></li>
                     <li>
-                        <a href="#" class="desktop-item">Menu</a>
+                        <a class="desktop-item">Menu</a>
                         <input type="checkbox" id="showDrop">
                         <label for="showDrop" class="mobile-item">Menu</label>
                         <ul class="drop-menu">
-                            <li><a href="#">Meu Perfil</a></li>
-                            <li><a href="#">Preferenças</a></li>
-                            <li><a href="#">Drop menu 3</a></li>
-                            <li><a href="#">Drop menu 4</a></li>
+                            <li><a href="/my-profile">Meu Perfil</a></li>
+                            <li><a href="/settings">Preferenças</a></li>
                         </ul>
                     </li>
                     <li><a href="/logout">Sair</a></li>
@@ -43,6 +41,7 @@
         </nav>
         <div class="body-container">
             <div class="body-content">
+                {% block content %}
                 <header>Olá {{user}} :)</header>
                 <div class="body-text">
                     <div class="title">>>> Carteira</div>
@@ -80,6 +79,7 @@
                         {%endfor%}
                     </tbody>
                 </table>
+                {% endblock content %}
             </div>
         </div>
     </body>
