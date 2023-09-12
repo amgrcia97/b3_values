@@ -5,7 +5,11 @@
 <h1 class="section-header">Escreva sua mensagem:</h1>
 <div class="contact-row">
     <div class="contact-column">
-        <form action="#" method="POST" style="padding: 20px;">
+        <form action="/contact" method="POST" style="padding: 20px;">
+            {% for message in get_flashed_messages(category_filter=["success"]) %}
+            <div class="alert-login">{{ message }}
+            </div>
+            {% endfor %}
             <div class="field">
                 <span class="fa fa-user"></span>
                 <input id="username" name="username" type="text" placeholder="Nome" required>
@@ -14,44 +18,13 @@
                 <span class="fa fa-user"></span>
                 <input id="email" name="email" type="text" placeholder="Email" required>
             </div>
-            <textarea class="field space" rows="10" placeholder="MESSAGE" name="message" required></textarea>
+            <textarea  class="field space" placeholder="Mensagem" name="message" style=" min-width:0px; max-width:100%;min-height:50px;height:100%;width:100%;" required></textarea>
             <div class="field space">
                 <input type="submit" value="Enviar">
             </div>            
         </form>
     </div>
     <!-- <div class="contact-column" style="background-color: red;">
-        <div class="direct-contact-container">
-
-            <ul class="contact-list">
-            <li class="list-item"><i class="fa fa-map-marker fa-2x"><span class="contact-text place">City, State</span></i></li>
-            
-            <li class="list-item"><i class="fa fa-phone fa-2x"><span class="contact-text phone"><a href="tel:1-212-555-5555" title="Give me a call">(212) 555-2368</a></span></i></li>
-            
-            <li class="list-item"><i class="fa fa-envelope fa-2x"><span class="contact-text gmail"><a href="mailto:#" title="Send me an email">b3marketstock@gmail.com</a></span></i></li>
-            
-            </ul>
-    
-            <hr>
-            <ul class="social-media-list">
-            <li><a href="#" target="_blank" class="contact-icon">
-                <i class="fa fa-github" aria-hidden="true"></i></a>
-            </li>
-            <li><a href="#" target="_blank" class="contact-icon">
-                <i class="fa fa-codepen" aria-hidden="true"></i></a>
-            </li>
-            <li><a href="#" target="_blank" class="contact-icon">
-                <i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </li>
-            <li><a href="#" target="_blank" class="contact-icon">
-                <i class="fa fa-instagram" aria-hidden="true"></i></a>
-            </li>       
-            </ul>
-            <hr>
-    
-            <div class="copyright">&copy; ALL OF THE RIGHTS RESERVED</div>
-    
-        </div>
     </div> -->
 </div>
 {% endblock content %}

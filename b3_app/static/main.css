@@ -613,7 +613,7 @@ h1 {
 }
 
 textarea {
-  min-width: 380px;
+  min-width: 180px;
   padding-top: 10px;
   padding-left: 10px;
   min-height: 100px;
@@ -794,14 +794,14 @@ hr {
     float: none;
     margin: 0 auto;
   }  
-  .field, textarea {
-    
+  textarea {
+    width: 100px;
     margin: 0 auto;
   }
  
   
   .name, .email, textarea {
-    width: 280px;
+    width: 180px;
   } 
   
   .direct-contact-container {

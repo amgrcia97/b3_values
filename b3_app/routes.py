@@ -1,7 +1,8 @@
-from b3_app import app, engine
+from b3_app import app, engine, mail
 from functools import wraps
 from flask import render_template, redirect, flash, url_for, request, session
 from b3_app.models import User  # , UserAsset, AssetType
+from flask_mail import Message
 # The Session instance is not used for direct access, you should always use flask.session
 from flask_session import Session
 from passlib.hash import sha256_crypt
@@ -78,9 +79,19 @@ def about():
     return render_template('about.html')
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["POST", "GET"])
 @login_required
 def contact():
+    if request.method == 'POST':
+        msg = Message("Hello", sender=request.form.get('email', None))
+        msg.recipients = ["amgrcia97@gmail.com"]
+        msg.subject = 'Contact of "{}" From B3market'.format(request.form.get('username', None))
+        msg.body = request.form.get('message', None)
+        mail.send(msg)
+        if '_flashes' in session.keys():
+            session['_flashes'].clear()
+        flash("Mensagem enviada!", "success")
+        redirect(url_for('index'))
     return render_template('contact.html')
 
 
