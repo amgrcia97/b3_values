@@ -27,13 +27,11 @@ def login_required(f):
 @app.route("/")
 @login_required
 def index():
-    actions = ['CMIN3.SA', 'KLBN4.SA', 'MXRF11.SA', 'XPCA11.SA']
+    actions = ['CMIN3.SA', 'XPCA11.SA']
 
     actions = [
         {'name': 'CMIN3.SA', 'qty_u': 10, 'qty_m': 41.40},
-        {'name': 'KLBN4.SA', 'qty_u': 1, 'qty_m': 4.49},
-        {'name': 'MXRF11.SA', 'qty_u': 15, 'qty_m': 162.75},
-        {'name': 'XPCA11.SA', 'qty_u': 20, 'qty_m': 188.60},
+        {'name': 'XPCA11.SA', 'qty_u': 38, 'qty_m': 363.66},
 
     ]
     ptrm = 0

@@ -1,19 +1,10 @@
-
-import os
+import socket
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from flask_mail import Mail
 
-# file_path = os.path.abspath(os.getcwd())+"/todo.db"
-
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:@localhost/b3_app"
-# app.config['SQLALCHEMY_TRACK_MODFICATIONS'] = False
-
-# app.config["DEBUG"] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://b3market:password.1234@b3market.mysql.pythonanywhere-services.com/b3market$b3_market'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.config.update(dict(
     DEBUG=True,
@@ -25,11 +16,18 @@ app.config.update(dict(
     MAIL_PASSWORD='eyilylsbrbokphdt',
 ))
 
+if socket.gethostname() == 'Andrs':
+    app.config["DEBUG"] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:@localhost/b3_app"
+    engine = create_engine("mysql://root:@localhost/b3_app")
+
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://b3market:password.1234@b3market.mysql.pythonanywhere-services.com/b3market$b3_market'
+    engine = create_engine("mysql://b3market:password.1234@b3market.mysql.pythonanywhere-services.com/b3market$b3_market")
+
+app.config['SQLALCHEMY_TRACK_MODFICATIONS'] = False
+
 mail = Mail(app)
-
-
-# engine = create_engine("mysql://root:@localhost/b3_app")
-engine = create_engine("mysql://b3market:password.1234@b3market.mysql.pythonanywhere-services.com/b3market$b3_market")
 
 db = SQLAlchemy(app)
 
